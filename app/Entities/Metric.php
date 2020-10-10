@@ -37,27 +37,6 @@ class Metric extends Model
     }
 
     /**
-     * @param array $filter
-     * @param $primaryId
-     * @return Collection
-     */
-    public static function getMetrics(array $filter): Collection
-    {
-        $primary = $filter['primary'] ?? null;
-
-        return self::filterByPrimaryId($primary)
-            ->whereBetween('date', [
-                $filter['from'] ?? now()->subMonth()->format('Y-m-d'),
-                $filter['to'] ?? now()->format('Y-m-d'),
-            ])
-            ->selectRaw('SUM(total) as `total`,
-                `date` as `date`,
-                `status`')
-            ->groupBy('status', 'date')
-            ->get(['date', 'status', 'total']);
-    }
-
-    /**
      * @param Collection $metrics
      * @return Collection
      */
