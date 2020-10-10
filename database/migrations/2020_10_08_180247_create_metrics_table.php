@@ -19,7 +19,7 @@ class CreateMetricsTable extends Migration
             $table->string('date');
             $table->unsignedInteger('primary_id');
             $table->enum('status', \App\Constants\Statuses::toArray());
-            $table->integer('total');
+            $table->integer('total')->default(0);
             $table->timestamps();
         });
 
